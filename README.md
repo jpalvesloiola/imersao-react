@@ -3,7 +3,7 @@
 
 ## Aula 1
 
-O código da Aula 1 pode ser encontrado na branch [aula1](#) no diretório `alura`.
+O código da Aula 1 pode ser encontrado na branch [aula1](https://github.com/jpalvesloiola/imersao-react/tree/Aula-1) no diretório `alura`.
 
 
 ## Aula 2
