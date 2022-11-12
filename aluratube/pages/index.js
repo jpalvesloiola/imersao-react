@@ -1,8 +1,11 @@
 import getConfig from "../config.json";
 import styled from "styled-components";
 import { CSSReset } from "../src/components/CSSReset";
-import Menu from "../src/components/Menu";
+import Menu from "../src/Menu/Menu";
 import { StyledTimeline } from "../src/components/Timeline";
+import { StyledHeader } from "../src/components/Header";
+import { StyledFavoritos } from "../src/components/Favoritos";
+import Search from "../src/Menu/components/Search";
 
 function HomePage() {
   const estilosDaHomePage = {
@@ -11,21 +14,34 @@ function HomePage() {
   return (
     <>
       <CSSReset />
-      <div style={{
-                display: "flex",
-                flexDirection: "column",
-                flex: 1,
-                // backgroundColor: "red",
-            }}>
+      <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
         <Menu />
         <Header />
-        <Timeline playlists={getConfig.playlists}>Conteudo.</Timeline>
+        <Timeline playlists={getConfig.playlists} />
+        <Favoritos favoritos={getConfig.favoritos} />
       </div>
     </>
   );
 }
 
 export default HomePage;
+
+function Header() {
+  return (
+    <StyledHeader>
+      <section className="banner">
+        <img src={`https://images.unsplash.com/${getConfig.banner}`} />
+      </section>
+      <section className="user-info">
+        <img src={`https://github.com/${getConfig.github}.png`} />
+        <div>
+          <h2>{getConfig.name}</h2>
+          <p>{getConfig.job}</p>
+        </div>
+      </section>
+    </StyledHeader>
+  );
+}
 
 function Timeline(props) {
   const playlistNames = Object.keys(props.playlists);
@@ -56,38 +72,29 @@ function Timeline(props) {
   );
 }
 
-const StyledHeader = styled.div`
-  img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-  }
+function Favoritos(props) {
+  const favoritosNames = Object.keys(props.favoritos);
 
-  .user-info {
-    margin-top: 50px;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    padding: 16px 32px;
-    gap: 16px;
-  }
-`;
-
-function Header() {
   return (
-    <StyledHeader>
-      {/* <img src="banner"/> */}
-      <section className="user-info">
-        <img src={`https://github.com/${getConfig.github}.png`} />
-        <div>
-          <h2>{getConfig.name}</h2>
-          <p>{getConfig.job}</p>
-        </div>
-      </section>
-    </StyledHeader>
+    <StyledFavoritos>
+      {favoritosNames.map((favoritoName) => {
+        const perfis = props.favoritos[favoritoName];
+        return (
+          <section>
+            <h2>{favoritoName}</h2>
+            <div>
+              {perfis.map((perfil) => {
+                return (
+                  <a href={perfil.url}>
+                    <img src={perfil.thumb} />
+                    <span>{perfil.id}</span>
+                  </a>
+                );
+              })}
+            </div>
+          </section>
+        );
+      })}
+    </StyledFavoritos>
   );
 }
-
-// function Menu() {
-//   return <div>Menu</div>;
-// }
