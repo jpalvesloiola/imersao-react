@@ -13,7 +13,6 @@ export const StyledHeader = styled.div`
   }
 
   .user-info {
-    margin: 0px;
     display: flex;
     align-items: center;
     width: 100%;

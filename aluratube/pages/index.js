@@ -26,12 +26,15 @@ function HomePage() {
 
 export default HomePage;
 
+const StyledBanner = styled.div`
+  background-image: url(${({banner}) => banner});
+  height: 230px;
+
+`;
 function Header() {
   return (
     <StyledHeader>
-      <section className="banner">
-        <img src={`https://images.unsplash.com/${getConfig.banner}`} />
-      </section>
+      <StyledBanner banner = {getConfig.banner}/>
       <section className="user-info">
         <img src={`https://github.com/${getConfig.github}.png`} />
         <div>
